@@ -1,22 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { getTasks } from "../src/redux-duck/tasksDuck";
+import List from "../src/components/list";
+
+import { useEffect } from "react";
+import "./App.css";
+import Input from "./components/input";
 
 function App() {
+  const tasks = useSelector((store) => store.tasks.tasks);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>TASK FRONT APP</p>
+        <Input />
+        <List />
       </header>
     </div>
   );
