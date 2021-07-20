@@ -25,8 +25,6 @@ localhost:3000
 ```
 
 **Falta:
-- editar description
 - test - valid
-- pasar de list html a component task
 -css mejorar style puro o con framework
 - para editar vigent seria mejor usar patch**
