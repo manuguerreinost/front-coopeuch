@@ -10,7 +10,7 @@ function Input() {
 
   return (
     <div>
-      <input type="text" onChange={(e) => setValue(e.target.value)} required />
+      <input type="text" onChange={(e) => setValue(e.target.value)}  />
       <button onClick={() => dispatch(postTask(value))}>ADD</button>
     </div>
   );

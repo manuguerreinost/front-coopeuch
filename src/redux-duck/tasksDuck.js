@@ -7,6 +7,7 @@ const initialState = {
 const POST_TASK = "POST_TASK";
 const GET_TASKS = "GET_TASKS";
 const PUT_TASK = "PUT_TASK";
+const PUTV_TASK = "PUTV_TASK";
 const DELETE_TASK = "DELETE_TASK";
 
 export default function tasksReducer(state = initialState, { type, payload }) {
@@ -20,6 +21,18 @@ export default function tasksReducer(state = initialState, { type, payload }) {
       ...state,
       tasks: state.tasks.filter((p) => {
         if (p.id === payload.id) {
+          p.description = payload.description;
+          return p;
+        } else return p;
+      }),
+    };
+
+    if (type === "PUTV_TASK")
+    return {
+      ...state,
+      tasks: state.tasks.filter((p) => {
+        if (p.id === payload.id) {
+        
           p.vigent = payload.vigent;
           return p;
         } else return p;
@@ -41,16 +54,32 @@ export const getTasks = () => async (dispatch, getState) => {
   }
 };
 
-export const putTask =
-  ({ id, description, vigent }) =>
+export const putTask =(id,value) =>
   async (dispatch, getState) => {
     try {
       const resp = await axios.put(`http://localhost:9000/api/tasks/${id}`, {
-        description,
-        vigent: !vigent,
+    
+      description: value
       });
       dispatch({
         type: PUT_TASK,
+        payload: resp.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  export const putTaskVigent =({id,description,vigent}) =>
+  async (dispatch, getState) => {
+    try {
+      const resp = await axios.put(`http://localhost:9000/api/tasks/${id}`, {
+
+      vigent: !vigent,
+      });
+      dispatch({
+        type: PUTV_TASK,
         payload: resp.data,
       });
     } catch (error) {
